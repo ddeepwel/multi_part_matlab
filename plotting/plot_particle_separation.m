@@ -13,7 +13,6 @@ end
 
 [time, sep, sep_vel] = particle_separation(p1, p2);
 
-keyboard
 % check if reached bottom and don't plot after this
 hit_bottom = reached_bottom();
 if hit_bottom
