@@ -9,6 +9,8 @@ if nargin == 0
 elseif nargin == 2
     save_plot = true;
     multi_plot = false;
+elseif nargin == 3
+    multi_plot = false;
 end
 
 [time, sep, sep_vel] = particle_separation(p1, p2);
