@@ -12,18 +12,23 @@ function parms = sim_parameters(Re, Np, s, Fr, Dp_dx, ep, pert_type)
 %       - xpert:  particles are perturbed horizontaly by amount on the order ep
 %       - ypert:  particles are perturbed vertically  by amount on the order ep
 %       - xypert: particles are perturbed horizontally and vertically  by amount on the order ep
+%       - regular: particles are regularly spaced
 
 
 if nargin < 4
     error('not enough input arguments')
 elseif nargin == 4
-    Dp_dx = 15;
-    perturb = false;
+    Dp_dx = 16;
+    perturb = true;
+    ep = 0.3;
+    pert_type = 'xypert';
 elseif nargin == 5
-    perturb = false;
+    perturb = true;
+    ep = 0.3;
+    pert_type = 'xypert';
 elseif nargin == 6
     perturb = true;
-    pert_type = 'random';
+    pert_type = 'xypert';
 else
     perturb = true;
 end
@@ -50,7 +55,7 @@ Pe = Re * Sc;
 % domain dimensions
 Lx = Np * (s+1); % width
 Delta = 18 * Fr^2 / Re;  % distance to depth of equivalent fluid density
-LT = 6;
+LT = round(0.2*Delta);
 Ly = Delta + 2*LT; % depth with added upper buffer
 Lz = s+1;      % spanwise length
 
@@ -88,7 +93,14 @@ if perturb
             xp = xp + normrnd(0,ep,[1,Np]);
             yp = normrnd(0,ep,[1,Np]);
 
+        case 'regular'
+            xp = (-Lx/2+(s+1)/2):(s+1):(Lx/2-(s+1)/2);
+            yp = 0 * xp;
+
     end
+else
+    xp = (-Lx/2+(s+1)/2):(s+1):(Lx/2-(s+1)/2);
+    yp = 0 * xp;
 end
 
 parms.rho_0 = rho_0;
@@ -120,6 +132,8 @@ fprintf('particle positions:\n');
 for nn = 1:Np
     fprintf('%6.5g %6.5g %6.5g %6.5g\n', xp(nn), yp(nn), 0, 0.5);
 end
+fprintf('ep      = %0.5g\n', ep);
+fprintf('pert_type= %s\n', pert_type);
 
 figure(301)
 clf
