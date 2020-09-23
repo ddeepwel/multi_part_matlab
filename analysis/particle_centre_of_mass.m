@@ -1,4 +1,4 @@
-function [time, x_com, y_com, z_com, Np] = centre_of_mass()
+function [time, x_com, y_com, z_com, Np] = particle_centre_of_mass()
 % find the centre of mass of the particles as a function of time
 
 % number of particles
