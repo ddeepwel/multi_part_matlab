@@ -56,6 +56,9 @@ elseif strcmp(field, 'KE_h')
 else
     cmap = cmocean('balance');
 end
+if strcmp(style,'contour')
+    cmap = darkjet;
+end
 
 fieldname = ['/',group,'/',field];
 
@@ -115,7 +118,7 @@ for ii = t_index
             case 'contourf'
                 contourf(xvar, yvar, data'.*(1-vf'),51)
             case 'contour'
-                contour(xvar, yvar, data'.*(1-vf'),10)
+                contour(xvar, yvar, data'.*(1-vf'),30)
         end
         shading flat
         %contour(xvar, yvar, data'.*(1-vf'), [1 1]*0.5)

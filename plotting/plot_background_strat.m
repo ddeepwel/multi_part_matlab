@@ -9,7 +9,7 @@ end
 
 figure(98)
 clf
-contour(time, y , strat_ty')
+contour(time, y , strat_ty', 20)
 
 colormap(darkjet)
 colorbar
