@@ -130,7 +130,7 @@ fprintf('Pe      = %0.4g\n', Pe);
 fprintf('Ri      = %0.5g\n', Ri);
 fprintf('particle positions:\n');
 for nn = 1:Np
-    fprintf('%6.5g %6.5g %6.5g %6.5g\n', xp(nn), yp(nn), 0, 0.5);
+    fprintf('%4.5g %4.5g %4.5g %4.5g\n', xp(nn), yp(nn), 0, 0.5);
 end
 fprintf('ep      = %0.5g\n', ep);
 fprintf('pert_type= %s\n', pert_type);
