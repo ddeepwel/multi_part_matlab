@@ -151,7 +151,7 @@ for ii = t_index
         xlabel(xlab)
         ylabel(ylab)
         if strcmp(field,'c0') || strcmp(field,'c1')
-            caxis([min(data(:)) max(data(:))])
+            caxis([min(data(:).*(1-vf(:))) max(data(:).*(1-vf(:)))])
         elseif ischar(clim)
             caxis([-1 1]*max(abs(data(:))));
         else
