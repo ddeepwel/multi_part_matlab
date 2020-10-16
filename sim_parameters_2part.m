@@ -1,4 +1,4 @@
-function parms = sim_parameters(Re, theta, s, Fr, Dp_dx)
+function parms = sim_parameters(Re, Fr, s, theta, Dp_dx)
 % create list of parameters to keep fixed and functions to get the correct varied parameters
 % for 2 particles in linear stratification
 % Re: Reynolds number
