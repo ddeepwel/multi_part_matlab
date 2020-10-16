@@ -4,10 +4,10 @@ function p_h = plot_particle_separation(p1, p2, save_plot, multi_plot)
 if nargin == 0
     p1 = 0;
     p2 = 1;
-    save_plot = true;
+    save_plot = false;
     multi_plot = false;
 elseif nargin == 2
-    save_plot = true;
+    save_plot = false;
     multi_plot = false;
 elseif nargin == 3
     multi_plot = false;
@@ -24,7 +24,7 @@ else
     inds = 1:length(time);
 end
 
-figure(67)
+figure(63)
 if ~multi_plot
     clf
 end
@@ -37,7 +37,7 @@ if hit_bottom
 end
 
 %xlabel('$t$')
-ylabel('$(s-D_p)/D_p$')
+ylabel('$s/D_p$')
 title('particle separation')
 %yl = ylim();
 %ylim([0 yl(2)])

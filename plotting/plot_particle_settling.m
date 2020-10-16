@@ -10,7 +10,7 @@ params = read_params();
 [time, y_p, vel] = particle_settling(particle_ID);
 
 % make figure
-figure(65)
+figure(62)
 %clf
 subplot(2,1,1)
 hold on

@@ -23,7 +23,7 @@ for mm = 1:Np
 end
 
 % make plot
-figure(66)
+figure(65)
 clf
 hold on
 
@@ -80,7 +80,7 @@ cd('..')
 
 %%%%% 2nd Figure %%%%%
 
-figure(67)
+figure(66)
 clf
 hold on
 

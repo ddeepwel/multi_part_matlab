@@ -17,7 +17,7 @@ Lx = xmax - xmin;
 particle_files = dir('mobile_*.dat');
 Np = length(particle_files);
 
-figure(68)
+figure(64)
 if ~multi_plot
     clf
 end
@@ -79,7 +79,7 @@ grid on
 
 subplot(2,1,1)
 grid on
-ylabel('$(s-D_p)/D_p$')
+ylabel('$s/D_p$')
 title('particle separation')
 
 figure_defaults()

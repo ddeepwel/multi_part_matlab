@@ -17,7 +17,7 @@ load('entrained_tracer')
 mass = volume * 6/pi/Ly;
 
 % make figure
-figure(63)
+figure(77)
 if ~multi_plot
     clf
 end
