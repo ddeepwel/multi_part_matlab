@@ -1,4 +1,4 @@
-function [] = plot_centre_of_mass(multi_plot)
+function p_h = plot_centre_of_mass(multi_plot)
 % plot the centre of mass of all particles over time
 
 if nargin == 0
@@ -47,7 +47,7 @@ ylabel('$z_\mathrm{COM}/D_p$','Interpreter','latex')
 
 subplot(2,3,6)
 hold on
-plot(time,w_com)
+p_h = plot(time,w_com);
 xlabel('$t/\tau$')
 ylabel('$w_\mathrm{COM}/w_s$','Interpreter','latex')
 
