@@ -1,4 +1,4 @@
-function p_h = plot_particle_separation(save_plot, multi_plot)
+function p_h = plot_particle_separation_multi(save_plot, multi_plot)
 % plot separation between multiple particles
 
 if nargin == 0
