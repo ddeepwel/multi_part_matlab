@@ -1,9 +1,9 @@
-function parms = sim_parameters(Re, Np, s, Fr, Dp_dx, ep, pert_type)
+function parms = sim_parameters(Re, Fr, s, Np, Dp_dx, ep, pert_type)
 % create list of parameters to keep fixed and functions to get the correct varied parameters
 % Re: Reynolds number
-% Np: Number of particles
-% s: spacing between particle edges divided by the particle diameter
 % Fr: Froude number
+% s: spacing between particle edges divided by the particle diameter
+% Np: Number of particles
 % Dp_dx: points per particle diameter
 % ep: epsilon, small parameter for perturbing particle location
 % pert_type: the type of perturbation to use
