@@ -41,5 +41,6 @@ end
 
 xlabel('$x/D_p$')
 ylabel('$y/D_p$')
+title(sprintf('$N_p=%d,~t_f/\\tau=%.2g$',Np,time(end)))
 
 figure_defaults()
