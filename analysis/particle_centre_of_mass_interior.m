@@ -14,6 +14,7 @@ for nn = 0:Np-1
 end
 
 time = p_data.time;
+Np = Np-2;
 
 x_com = mean(x_p(:,2:end-1),2);
 y_com = mean(y_p(:,2:end-1),2);
