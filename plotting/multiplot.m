@@ -19,7 +19,11 @@ direcs = {...
     'N7_s1',...
     'N8_s1',...
     'N9_s1',...
-    'N10_s1'
+    'N10_s1',...
+    'N11_s1',...
+    'N12_s1',...
+    %'N13_s1',...
+    %'N14_s1'
     };
 
 for mm = 1:length(direcs)
@@ -29,7 +33,7 @@ for mm = 1:length(direcs)
             if mm == 1
                 figure(55), clf
             end
-            subplot(2,4,mm)
+            subplot(3,4,mm)
             plot_positions_rel_CoM(true);
         case 'centre_of_mass_settling'
             if mm == 1
@@ -51,6 +55,11 @@ for mm = 1:length(direcs)
                 figure(58), clf
             end
             plot_cluster_width(false,true);
+        case 'particle_settling_middle'
+            if mm == 1
+                figure(62), clf
+            end
+            plot_particle_settling_middle(true);
     end
 end
 
