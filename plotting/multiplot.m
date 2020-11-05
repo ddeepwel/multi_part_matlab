@@ -22,8 +22,8 @@ direcs = {...
     'N10_s1',...
     'N11_s1',...
     'N12_s1',...
-    %'N13_s1',...
-    %'N14_s1'
+    'N13_s1',...
+    'N14_s1'
     };
 
 for mm = 1:length(direcs)
@@ -35,6 +35,8 @@ for mm = 1:length(direcs)
             end
             subplot(3,4,mm)
             plot_positions_rel_CoM(true);
+            axis([-15 15 -5 5])
+            grid on
         case 'centre_of_mass_settling'
             if mm == 1
                 figure(75), clf
