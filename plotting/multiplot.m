@@ -33,7 +33,7 @@ for mm = 1:length(direcs)
             if mm == 1
                 figure(55), clf
             end
-            subplot(3,4,mm)
+            subplot(4,3,mm)
             plot_positions_rel_CoM(true);
             axis([-15 15 -5 5])
             grid on
@@ -69,8 +69,25 @@ if ~strcmp(style,'positions_rel_CoM')
     subplot(2,1,1)
     legend(strrep(direcs,'_',' '))
 else
+    % change settings on the positions_rel_CoM plot
+    for mm = 1:length(direcs)
+        subplot(4,3,mm)
+        if mod(mm-1,3)
+            ylabel('')
+            yticklabels('')
+        end
+        if mm < 10
+            xlabel('')
+            xticklabels('')
+        end
+        shift_axis(0,(floor((mm-1)/3)-1.5)*0.04)
+        axis image
+        axis([-15 15 -5 5])
+    end
+    set(gcf,'units','inches')
     pos = get(gcf,'position');
-    pos(3) = 900;
+    pos(3) = 12;
+    pos(4) = 7;
     set(gcf,'position',pos);
 end
 figure_defaults()

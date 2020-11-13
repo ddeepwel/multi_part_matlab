@@ -34,6 +34,8 @@ if min(y_com) < loc
     yind = nearest_index(y_com, loc);
 else
     yind = length(time);
+    disp('particles have not reached the desired level yet for case:')
+    disp(pwd)
 end
 inds = 1:yind;
 x_p_rel = x_p_rel(inds,:);
@@ -48,12 +50,13 @@ hold on
 
 for nn = 1:Np
     plot(x_p_rel(:,nn), y_p_rel(:,nn))
-    plot(x_p_rel(1,nn), y_p_rel(1,nn),'ko')
-    plot(x_p_rel(end,nn), y_p_rel(end,nn),'kx')
+    plot(x_p_rel(1,nn), y_p_rel(1,nn),'ko','MarkerSize',4)
+    plot(x_p_rel(end,nn), y_p_rel(end,nn),'kx','MarkerSize',4)
 end
 
 xlabel('$x/D_p$')
 ylabel('$y/D_p$')
-title(sprintf('$N_p=%d,~t_f/\\tau=%.3g$',Np,time(yind)))
+%title(sprintf('$N_p=%d,~t_f/\\tau=%.3g$',Np,time(yind)))
+title(sprintf('$N_p=%d$',Np))
 
 figure_defaults()
