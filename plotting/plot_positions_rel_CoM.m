@@ -48,8 +48,9 @@ if ~subplots
 end
 hold on
 
+col = lines();
 for nn = 1:Np
-    plot(x_p_rel(:,nn), y_p_rel(:,nn))
+    plot(x_p_rel(:,nn), y_p_rel(:,nn),'-','Color',col(nn,:))
     plot(x_p_rel(1,nn), y_p_rel(1,nn),'ko','MarkerSize',4)
     plot(x_p_rel(end,nn), y_p_rel(end,nn),'kx','MarkerSize',4)
 end
