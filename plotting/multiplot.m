@@ -31,10 +31,18 @@ for mm = 1:length(direcs)
     switch style
         case 'positions_rel_CoM'
             if mm == 1
-                figure(55), clf
+                figure(56), clf
             end
             subplot(4,3,mm)
             plot_positions_rel_CoM(true);
+            axis([-15 15 -5 5])
+            grid on
+        case 'positions_rel_per'
+            if mm == 1
+                figure(46), clf
+            end
+            subplot(4,3,mm)
+            plot_positions_rel_per(true);
             axis([-15 15 -5 5])
             grid on
         case 'centre_of_mass_settling'
@@ -65,7 +73,7 @@ for mm = 1:length(direcs)
     end
 end
 
-if ~strcmp(style,'positions_rel_CoM')
+if ~strcmp(style,'positions_rel_CoM') && ~strcmp(style,'positions_rel_per')
     subplot(2,1,1)
     legend(strrep(direcs,'_',' '))
 else
