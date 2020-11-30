@@ -1,4 +1,4 @@
-function [] = row_particle_offset()
+function [time, part0, dev] = row_particle_offset()
 % find the deviation of each particle from its location
 % if it were settling in an infinitely periodic row
 
@@ -17,7 +17,9 @@ end
 time = p_data.time;
 
 % get particle position from periodic row
-orig_dir = cd('../N_periodic');
+s0 = part0(2) - part0(1) - 1;
+N1_dir = sprintf('../N1_s%d_periodic',s0);
+orig_dir = cd(N1_dir);
 p_data = check_read_dat('mobile_0');
 %x_per = p_data.x;
 y_per = p_data.y;
@@ -36,17 +38,3 @@ y_dist = y_p - y_per;
 
 dev = sqrt(x_dist.^2 + y_dist.^2 + z_dist.^2);
 
-figure(133)
-clf
-contour(part0(:,1), time, dev,'showtext','on')
-xlabel('$x_p(t=0)$')
-ylabel('$t/\tau$')
-figure_defaults()
-
-[cx,cy] = find_contour(part0(:,1), time, dev, 0.5);
-
-figure(134)
-clf
-plot(cx,cy)
-
-keyboard
