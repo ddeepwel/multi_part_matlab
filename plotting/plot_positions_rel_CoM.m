@@ -32,15 +32,18 @@ z_p_rel = z_p - z_com;
 loc = par.ymin + 10;
 if min(y_com) < loc
     yind = nearest_index(y_com, loc);
+    reach_bot = true;
 else
     yind = length(time);
     disp('particles have not reached the desired level yet for case:')
     disp(pwd)
+    reach_bot = false;
 end
 inds = 1:yind;
 x_p_rel = x_p_rel(inds,:);
 y_p_rel = y_p_rel(inds,:);
 z_p_rel = z_p_rel(inds,:);
+time = time(inds);
 
 if ~subplots
     figure(56)
@@ -52,8 +55,18 @@ col = lines();
 for nn = 1:Np
     plot(x_p_rel(:,nn), y_p_rel(:,nn),'-','Color',col(nn,:))
     plot(x_p_rel(1,nn), y_p_rel(1,nn),'ko','MarkerSize',4)
-    plot(x_p_rel(end,nn), y_p_rel(end,nn),'kx','MarkerSize',4)
+    if reach_bot
+        plot(x_p_rel(end,nn), y_p_rel(end,nn),'kx','MarkerSize',4)
+    end
+    % add dots every 10 time units
+    for tt = 10:10:30
+        if time(end) > tt
+            tind = nearest_index(time,tt);
+            plot(x_p_rel(tind,nn), y_p_rel(tind,nn), 'ko', 'MarkerSize', 2, 'MarkerFaceColor','k');
+        end
+    end
 end
+fprintf('t_f = %0.5g\n', time(end))
 
 xlabel('$x/D_p$')
 ylabel('$y/D_p$')

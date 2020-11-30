@@ -21,7 +21,9 @@ end
 time = p_data.time;
 
 % get particle position in a periodic array
-orig_dir = cd('../N_periodic');
+s0 = part0(2) - part0(1) - 1;
+N1_dir = sprintf('../N1_s%d_periodic',s0);
+orig_dir = cd(N1_dir);
 p_data = check_read_dat('mobile_0');
 x_per = p_data.x;
 y_per = p_data.y;
@@ -53,6 +55,7 @@ inds = 1:yind;
 x_p_rel = x_p_rel(inds,:);
 y_p_rel = y_p_rel(inds,:);
 z_p_rel = z_p_rel(inds,:);
+time = time(inds);
 
 if ~subplots
     figure(46)
@@ -67,7 +70,15 @@ for nn = 1:Np
     if reach_bot
         plot(x_p_rel(end,nn), y_p_rel(end,nn),'kx','MarkerSize',4)
     end
+    % add dots every 10 time units
+    for tt = 10:10:30
+        if time(end) > tt
+            tind = nearest_index(time,tt);
+            plot(x_p_rel(tind,nn), y_p_rel(tind,nn), 'ko', 'MarkerSize', 2, 'MarkerFaceColor','k');
+        end
+    end
 end
+fprintf('t_f = %0.5g\n', time(end))
 
 xlabel('$x/D_p$')
 ylabel('$y/D_p$')
