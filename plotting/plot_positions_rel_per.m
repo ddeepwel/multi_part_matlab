@@ -86,3 +86,9 @@ ylabel('$y/D_p$')
 title(sprintf('$N_p=%d$',Np))
 
 figure_defaults()
+
+check_make_dir('figures')
+cd('figures')
+print_figure('pos_rel_per','format','pdf')
+cd('..')
+
