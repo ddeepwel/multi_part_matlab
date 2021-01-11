@@ -1,14 +1,20 @@
-function [] = plot_positions_rel_per(subplots)
+function [] = plot_positions_rel_per(s0, subplots)
 % plot the positions of each particle relative to a
 % periodic array of particles
-
-if nargin == 0
-    subplots = false;
-end
 
 % number of particles
 [part0, Np] = particle_initial_positions;
 par = read_params();
+
+if nargin < 1
+    s0 = part0(2) - part0(1) - 1;
+end
+
+if nargin < 2
+    subplots = false;
+end
+
+fprintf('initial mean separation distance: %g\n',s0)
 
 for nn = 0:Np-1
     p_file = sprintf('mobile_%d', nn);
@@ -21,7 +27,6 @@ end
 time = p_data.time;
 
 % get particle position in a periodic array
-s0 = part0(2) - part0(1) - 1;
 N1_dir = sprintf('../N1_s%d_periodic',s0);
 orig_dir = cd(N1_dir);
 p_data = check_read_dat('mobile_0');

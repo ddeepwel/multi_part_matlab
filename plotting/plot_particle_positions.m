@@ -61,6 +61,7 @@ for mm = 1:Np
             plot([1 1]*xp_reg(mm), [par.ymax par.ymin],'k','color',[0 0 0 0.3])
     end
 end
+plot(xlim, [0 0],'k','color',[0 0 0 0.3])
 
 cbar = colorbar;
 cbar.Label.String = '$t/\tau$';
@@ -74,7 +75,7 @@ figure_defaults()
 % save figure
 check_make_dir('figures')
 cd('figures')
-%print_figure('particle_positions','format','pdf','size',[6 4])
+print_figure('particle_positions','format','pdf','size',[6 4])
 cd('..')
 
 
@@ -111,3 +112,7 @@ cbar.Label.String = '$t/\tau$';
 
 
 figure_defaults()
+
+cd('figures')
+%print_figure('particle_positions_centred','format','jpeg')
+cd('..')

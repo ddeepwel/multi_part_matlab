@@ -9,6 +9,8 @@ end
 
 base = pwd;
 
+s0 = 1;
+
 direcs = {...
     %'N1',...
     %'N2_s1',...
@@ -42,7 +44,7 @@ for mm = 1:length(direcs)
                 figure(46), clf
             end
             subplot(4,3,mm)
-            plot_positions_rel_per(true);
+            plot_positions_rel_per(s0,true);
             axis([-15 15 -5 5])
             grid on
         case 'centre_of_mass_settling'

@@ -34,18 +34,12 @@ hold on
 for mm = 1:length(dirs)
     cd([base,dirs{mm}])
 
-    par = read_params();
-    ymin = par.ymin;
-
     [time, y_p, vel] = particle_settling();
     [time, sep, sep_vel] = particle_separation();
 
-    % find time when particles are 10 Dp above the bottom
-    tf_ind = nearest_index(y_p, ymin+10);
-    tf = time(tf_ind);
-    yf = y_p(tf_ind);
-    if abs(yf - (ymin+10)) > 0.25
-        disp(['simulation ',dirs{mm},' not within 10 Dp of bottom'])
+    % check if particles are 10 Dp above the bottom
+    if ~reached_bottom(10)
+        disp('simulation not within 10 Dp of bottom')
     end
 
     plot(time(1:tf_ind), sep_vel(1:tf_ind))
