@@ -1,11 +1,26 @@
-function [time, part0, p_dist] = nearest_neighbour_dist()
-% for each particle find the distance to the nearest
-% neighbour
+function [time, part0, p_dist] = neighbour_dist()
+% NEIGHBOUR_DIST    find the distance to the nearest neighbour
+% for each particle as a function of time
+%
+%  Inputs:
+%    - none
+%    
+%  Outputs:
+%    'time'   - a vector of the simulation time
+%    'part0'  - a matrix of the initial particle positions (x y z Rp)
+%    'p_dist' - a matrix of distance between neighbouring particles
+%               1st column is distance between p0 and p1
+%               2nd column is distance between p1 and p2
+%               .
+%               .
+%               .
+%               last column is distance between p(Np-1) and p0
+
 
 % number of particles
 [part0, Np] = particle_initial_positions;
 
-% get particle positions
+% load particle positions
 for nn = 0:Np-1
     p_file = sprintf('mobile_%d', nn);
     p_data = check_read_dat(p_file);
@@ -14,32 +29,21 @@ for nn = 0:Np-1
     z_p(:,nn+1) = p_data.z;
 end
 
+% load other parameters
 time = p_data.time;
 par = read_params();
-s0 = x_p(1,2) - x_p(1,1);
 Lx = par.xmax - par.xmin;
 
-% distance between particles
+% component distances between particles
 xdiff = diff(x_p, [], 2);
 ydiff = diff(y_p, [], 2);
 zdiff = diff(z_p, [], 2);
-% add the edge particle distance
+% add the edge particle components
 xedge = Lx + x_p(:,1) - x_p(:,end);
 yedge =      y_p(:,1) - y_p(:,end);
 zedge =      z_p(:,1) - z_p(:,end);
 xdiff = [xdiff xedge];
 ydiff = [ydiff yedge];
 zdiff = [zdiff zedge];
-
+% find euclidean distance
 p_dist = sqrt(xdiff.^2 + ydiff.^2 + zdiff.^2);
-
-% find max of nearest neighbours
-%for nn = 1:Np-1
-%    max_dist(:, nn+1) = max(p_dist(:,nn:nn+1), [], 2);
-%end
-%max_dist(:, 1) = max([p_dist(:,1) p_dist(:,end)], [], 2);
-
-% remove particle diameter
-% so that distance is from points of closest contact
-%max_dist = max_dist - 1;
-
