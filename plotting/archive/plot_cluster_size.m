@@ -1,5 +1,5 @@
 function [] = plot_cluster_size(save_plot, multi_plot)
-    % plot the time evolution of the particle cluster size
+% plot the time evolution of the particle cluster size
 
 if nargin == 0
     save_plot = false;
