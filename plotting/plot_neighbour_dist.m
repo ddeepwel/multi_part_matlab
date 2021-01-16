@@ -12,9 +12,3 @@ contour([part0(1,1)-s; part0(:,1)] + s/2, time, [p_dist(:,end) p_dist], 'showtex
 xlabel('$x_p(t=0)/D_p$')
 ylabel('$t/\tau$')
 figure_defaults()
-
-%[cx,cy] = find_contour(part0(:,1), time, dev, 0.5);
-
-%figure(134)
-%clf
-%plot(cx, cy)

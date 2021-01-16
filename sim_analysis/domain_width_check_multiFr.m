@@ -1,7 +1,9 @@
-% check the domain width for a single settling particle
-% in different stratifications
+% plot the settling velocity of an individual isolated particle
+% for various domain widths 
+% and different stratifications
 
 base = '/scratch/ddeepwel/multi_part/row/';
+%base = '/scratch/ddeepwel/multi_part/row/';
 strats = {'Frinf/','Fr2/'};
 strat_lab = {'$Fr=\infty$','$Fr = 2$'};
 Nstrats = length(strats);

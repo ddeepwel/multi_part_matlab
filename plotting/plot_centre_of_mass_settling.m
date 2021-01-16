@@ -1,14 +1,18 @@
 function p_h = plot_centre_of_mass_settling(multi_plot)
-% plot the centre of mass of all particles over time
+% plot the vertical position and settling speed
+% of the centre of mass of all particles
 
+% if false, clear figure before adding to it
 if nargin == 0
     multi_plot = false;
 end
 
+% compute the centre of mass and its settling speed
 [time,x_com,y_com,z_com] = particle_centre_of_mass();
 Dmat = FiniteDiff(time,1,2,true,false);
 v_com = Dmat * y_com;
 
+% make figure
 figure(75)
 if ~multi_plot
     clf

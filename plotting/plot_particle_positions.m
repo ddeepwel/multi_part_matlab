@@ -1,41 +1,43 @@
-function [] = plot_particle_positions_xy(style)
-% plot particle positions and colour by time
-% styles are:
+function [] = plot_particle_positions(style)
+% PLOT_PARTICLE_POSITIONS  plot particle positions over time as they settle
+%
+% Inputes:
+%   'style' - can be either:
 %       'init'      - use initial particle positions
 %       'regular'   - assume that the particles are equispaced (or close to it)
 
-par = read_params();
-
+% set default input argument
 if nargin == 0
     style = 'init';
 end
 
+% number of particle
+[~, Np] = particle_initial_positions;
 
-% search for particle files
-particle_files = dir('mobile_*.dat');
-Np = length(particle_files);
-
-% read particle files
-p = cell(1, Np);
-for mm = 1:Np
-    fname = sprintf('mobile_%d', mm-1);
-    p{mm} = check_read_dat(fname);
+% load particle positions
+for nn = 0:Np-1
+    p_file = sprintf('mobile_%d', nn);
+    p_data = check_read_dat(p_file);
+    x_p(:,nn+1) = p_data.x;
+    y_p(:,nn+1) = p_data.y;
+    z_p(:,nn+1) = p_data.z;
 end
 
-% make plot
+% load parameters
+time = p_data.time;
+Nt = length(time);
+par = read_params();
+
+% setup figure
 figure(65)
 clf
 hold on
-
-time = p{1}.time;
-Nt = length(time);
 colormap(parula(Nt))
 cmap = colormap(parula(Nt));
+
+
 for mm = 1:Np
-    x = p{mm}.x;
-    y = p{mm}.y;
-    col = p{mm}.time;
-    scatter(x,y,[],col,'fill','SizeData',8)
+    scatter(x_p(mm,:), y_p(mm,:), [], time, 'fill', 'SizeData',8)
 end
 
 % add horizontal bands at intervals of 5 time units
@@ -45,24 +47,23 @@ end
 %    plot([p{1}.x(ind) p{2}.x(ind)],[p{1}.y(ind) p{2}.y(ind)], 'Color', cmap(cmap_ind,:))
 %end
 
-% find particle spacing
-for mm = 1:Np
-    xp(mm) = p{mm}.x(1);
-end
-xp_mean = round(mean(diff(xp)));
-xp_reg = (par.xmin + xp_mean/2):xp_mean:(par.xmax + xp_mean/2);
-
 % add vertical lines of initial particle positions
 for mm = 1:Np
     switch style
         case 'init'
             plot([1 1]*p{mm}.x(1), [par.ymax par.ymin],'k','color',[0 0 0 0.3])
         case 'regular'
+            % find average particle spacing
+            xp_mean = round(mean(diff(x_p(:,1))));
+            % create array of the spacing
+            xp_reg = (par.xmin + xp_mean/2):xp_mean:(par.xmax + xp_mean/2);
+
             plot([1 1]*xp_reg(mm), [par.ymax par.ymin],'k','color',[0 0 0 0.3])
     end
 end
 plot(xlim, [0 0],'k','color',[0 0 0 0.3])
 
+% add figure details
 cbar = colorbar;
 cbar.Label.String = '$t/\tau$';
 xlabel('$x/D_p$')
@@ -80,6 +81,8 @@ cd('..')
 
 
 %%%%% 2nd Figure %%%%%
+% plot particle tracks after collapsing initial position onto
+% the same location
 
 figure(66)
 clf

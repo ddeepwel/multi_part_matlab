@@ -1,21 +1,26 @@
-% compare the settling speed for different resolution 
-% for s1_periodic cases
+% compare the settling speed for different resolutions
+% for cases with Np=11 with middle particle perturbed upwards
 
-pID = 6;
+pID = 6; % particle ID for an individual particle (6 is middle)
 
+% directory
 base = '/scratch/ddeepwel/multi_part/row/Frinf/resolution/N11_s1_y02_periodic/';
+% cases
 dirs = {'dx16',...
         'dx32'};%,...
         %'dx64'};
+% legend label
 leg = {'$\Delta x / D_p = 1/16$',...
        '$\Delta x / D_p = 1/32$'};%,...
        %'$\Delta x / D_p = 1/64$'};
 
+% setup figure
 figure(77)
 clf
 subplot(2,1,1)
 hold on
 
+% loop through cases
 for nn = 1:length(dirs)
     cd([base,dirs{nn}])
 
@@ -24,10 +29,10 @@ for nn = 1:length(dirs)
     plot(time, -vel)
 end
 
+% labels and legend
 xlabel('$t/\tau$')
 ylabel('$w_p/w_s$')
 title(['particle ',int2str(pID)])
-
 legend(leg)
 legend('location','southeast')
 legend('boxoff')

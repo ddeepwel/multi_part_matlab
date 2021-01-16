@@ -1,24 +1,27 @@
-function [time, y_p, vel] = particle_settling(particle_ID)
-% get the settling velocity and depth of a particle
+function [time, y_p, vel] = particle_settling(pID)
+% PARTICLE_SETTLING  Calculate the particle settling velocity
+%
+%  Inputs:
+%    'pID' - particle ID
+%
+%  Outputs:
+%    'time'   - a vector of the simulation time
+%    'theta'  - a vector of the orientation angle (as measured from the vertical)
 
+% default input arguments
 if nargin == 0
-    particle_ID = 0;
+    pID = 0;
 end
 
-% Read data
-try
-    file_name = sprintf('mobile_%d',particle_ID);
-    particle_data = check_read_dat(file_name);
-catch
-    file_name = sprintf('mobile');
-    particle_data = check_read_dat(file_name);
-end
+% load data
+p_file = sprintf('mobile_%d', pID);
+p_data = check_read_dat(p_file);
 
 % get data
-time = particle_data.time;
-y_p  = particle_data.y;
+time = p_data.time;
+y_p  = p_data.y;
 
 % calculate velocity
-Dmat = FiniteDiff(time, 1, 2, true, false); % some cases have variable time step 
+Dmat = FiniteDiff(time, 1, 2, true, false);
 vel = Dmat * y_p;
 

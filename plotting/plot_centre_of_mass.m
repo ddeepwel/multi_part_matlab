@@ -1,18 +1,22 @@
 function p_h = plot_centre_of_mass(multi_plot)
-% plot the centre of mass of all particles over time
+% plot the position of the centre of mass 
+% of all particles over time
 
+% if false, clear figure before adding to it
 if nargin == 0
     multi_plot = false;
 end
 
+% compute centre of mass
 [time,x_com,y_com,z_com] = particle_centre_of_mass();
 
+% calculate the rate of change of position of COM
 Dmat = FiniteDiff(time,1,2,true,false);
-
 u_com = Dmat * x_com;
 v_com = Dmat * y_com;
 w_com = Dmat * z_com;
 
+% figure setup
 figure(74)
 if ~multi_plot
     clf

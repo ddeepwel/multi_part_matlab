@@ -1,6 +1,6 @@
+function [] = plot_diagnostics
 % plot PARTIES diagnostics
 
-%diagnos = table2struct(readtable('diagnostics.dat'), 'ToScalar', true);
 diagnos = check_read_dat('diagnostics');
 
 iter   = diagnos.iter;
@@ -13,13 +13,14 @@ figure(20)
 clf
 hold on
 
-%subplot(2,1,1)
+% plot the extrema of the density field
 plot(time, max_c0-1)
 plot(time, abs(min_c0))
 xlabel('$t/\tau$')
 legend('max $c_0-1$','$|$min $c_0|$')
 legend('boxoff')
 
+% print figure
 figure_defaults()
 check_make_dir('figures')
 cd('figures')

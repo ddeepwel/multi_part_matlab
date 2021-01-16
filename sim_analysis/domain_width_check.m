@@ -1,14 +1,17 @@
-% check the domain width for a single settling particle
-
-
+% plot the settling velocity of an individual isolated particle
+% for various domain widths 
+  
+% select directory
 %base = '/scratch/ddeepwel/multi_part/row/Frinf/';
 base = [pwd,'/'];
+% select cases
 dirs = {'Lx05',...
         'Lx10',...
         'Lx20',...
         'Lx30',...
         'Lx40',...
        };
+% legend labels
 leg = {'$L_x/D_p = 5$',...
     '$L_x/D_p = 10$',...
     '$L_x/D_p = 20$',...
@@ -16,6 +19,7 @@ leg = {'$L_x/D_p = 5$',...
     '$L_x/D_p = 40$',...
     };
 
+% setup figure
 figure(62)
 clf
 
@@ -31,6 +35,7 @@ for nn = 1:length(dirs)
     plot_particle_settling();
 end
 
+% add legend and make pretty
 legend(leg)
 figure_defaults();
 

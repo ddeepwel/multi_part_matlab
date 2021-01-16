@@ -1,6 +1,8 @@
+function [] = plot_2part_settling_multiFr()
 % plot the settling velocity for 2 side-by-side particles
-% in different stratifications
+% for different stratifications
 
+% selected cases
 base = '/scratch/ddeepwel/multi_part/row/';
 strats = {'Frinf/','Fr2/'};
 strat_lab = {'$Fr=\infty$','$Fr = 2$'};
@@ -37,12 +39,16 @@ leg = {
 % time for secondary subplot
 t_steady = 15;
 
+% figure setup
 figure(135)
 clf
 
+% loop through stratification
 for nn = 1:Nstrats
     subplot(2,Nstrats,nn)
     hold on
+
+    % loop through particle separation
     for mm = 1:length(dirs)
         cd([base,strats{nn},dirs{mm}])
 
@@ -57,17 +63,19 @@ for nn = 1:Nstrats
         end
 
         if mm == length(dirs)
+            % plot single particle
             p_hand(mm) = plot(time(1:tf_ind), -vel(1:tf_ind),'k');
         else
+            % plot particle pair
             p_hand(mm) = plot(time(1:tf_ind), -vel(1:tf_ind));
         end
     end
 
+    % beautify
     axis([0 30 0 1.2])
     xlabel('$t/\tau$')
     if nn == 1
         ylabel('$w_p/w_s$','Interpreter','latex')
-        %ylabel('$u_\mathrm{sep}/w_s~(\times10^{-3})$','Interpreter','latex')
         xlab = -0.2;
     else
         yticklabels([])
@@ -78,6 +86,12 @@ for nn = 1:Nstrats
     text(gca,xlab,0.9,subplot_labels(nn),...
         'Color','k','Units','normalized','Interpreter','Latex')
 end
+
+
+% second row subplots
+% plot the steady settling velocity of a particle pair relative
+% to the settling of a single particle as it depends on
+% initial particle separation
 
 subplot(2,2,1)
 legend(leg)
@@ -104,6 +118,7 @@ end
 
 figure_defaults()
 
+% print figure
 cd('../figures')
 print_figure('2part_settling_multiFr','size',[7 5],'format','pdf')
 cd('..')
