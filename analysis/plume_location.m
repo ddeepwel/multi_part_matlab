@@ -39,14 +39,21 @@ for ii = 1:Nt
     depths = -y_p(inds,ii);
     x_pos  =  x_p(inds,ii);
     [pks, locs] = findpeaks(depths, x_pos,...
-        'MinPeakDistance', 2*sep); 
+        'MinPeakDistance', 3*sep);
     p_locs(1:length(locs),ii) = locs;
 end
 
+%% reorder peak locations 
+%% this is caused by a plume peak arising mid-simulation
+%% a plume that was in the nth column gets bumped to the n+1th column
+%if max(diff(p_locs,[],2),[],2) > 2*sep
+%end
+
 % remove unwanted peaks that did not exist for very long
 for nn = 1:10
-    if sum(p_locs(nn,:) ~= 0) < 50
-        p_locs = p_locs(1:nn-1,:);
+    if sum(p_locs(nn,:) ~= 0) < 100
+        p_locs = p_locs([1:nn-1,nn+1:10],:);
         break
     end
 end
+p_locs(p_locs == 0) = NaN;

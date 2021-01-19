@@ -7,7 +7,7 @@ function [] = plot_positions_rel_per(sep0, subplots)
 par = read_params();
 
 if nargin < 1
-    sep0 = part0(2) - part0(1) - 1;
+    sep0 = mean(diff(part0(:,1))) - 1;
 end
 
 if nargin < 2
@@ -27,7 +27,7 @@ end
 time = p_data.time;
 
 % get particle position in a periodic array
-N1_dir = sprintf('../N1_s%d_periodic',sep0);
+N1_dir = sprintf('../N1_s%d_periodic',round(sep0));
 orig_dir = cd(N1_dir);
 p_data = check_read_dat('mobile_0');
 x_per = p_data.x;
@@ -83,6 +83,8 @@ for nn = 1:Np
         end
     end
 end
+plot(xlim, [0 0], 'k', 'Color', [0 0 0 0.3])
+
 fprintf('t_f = %0.5g\n', time(end))
 
 xlabel('$x/D_p$')
