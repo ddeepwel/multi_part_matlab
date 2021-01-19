@@ -35,9 +35,8 @@ hold on
 colormap(parula(Nt))
 cmap = colormap(parula(Nt));
 
-
 for mm = 1:Np
-    scatter(x_p(mm,:), y_p(mm,:), [], time, 'fill', 'SizeData',8)
+    scatter(x_p(:,mm), y_p(:,mm), [], time, 'fill', 'SizeData',8)
 end
 
 % add horizontal bands at intervals of 5 time units
@@ -51,10 +50,10 @@ end
 for mm = 1:Np
     switch style
         case 'init'
-            plot([1 1]*p{mm}.x(1), [par.ymax par.ymin],'k','color',[0 0 0 0.3])
+            plot([1 1]*x_p(1,mm), [par.ymax par.ymin],'k','color',[0 0 0 0.3])
         case 'regular'
             % find average particle spacing
-            xp_mean = round(mean(diff(x_p(:,1))));
+            xp_mean = round(mean(diff(x_p(1,:))));
             % create array of the spacing
             xp_reg = (par.xmin + xp_mean/2):xp_mean:(par.xmax + xp_mean/2);
 
@@ -89,16 +88,15 @@ clf
 hold on
 
 for mm = 1:Np
-    x = p{mm}.x;
-    y = p{mm}.y;
-    col = p{mm}.time;
+    x = x_p(:,mm);
+    y = y_p(:,mm);
     switch style
         case 'init'
             xdraw = x - x(1);
         case 'regular'
             xdraw = x-xp_reg(mm);
     end
-    scatter(xdraw,y,[],col,'fill','SizeData',8)
+    scatter(xdraw, y, [], time, 'fill', 'SizeData',8)
     text(xdraw(round(Nt*3/4)), y(round(Nt*3/4)), num2str(mm))
 end
 

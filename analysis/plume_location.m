@@ -13,7 +13,7 @@ function [time, p_locs] = plume_location()
 
 % load particle positions
 for nn = 0:Np-1
-  p_file = sprintf('data/mobile_%d',nn);
+  p_file = sprintf('mobile_%d',nn);
   p_data = check_read_dat(p_file);
   x_p(nn+1,:)  = p_data.x;  % along-length position
   y_p(nn+1,:)  = p_data.y;  % vertical position
