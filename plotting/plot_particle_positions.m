@@ -83,37 +83,37 @@ cd('..')
 % plot particle tracks after collapsing initial position onto
 % the same location
 
-figure(66)
-clf
-hold on
-
-for mm = 1:Np
-    x = x_p(:,mm);
-    y = y_p(:,mm);
-    switch style
-        case 'init'
-            xdraw = x - x(1);
-        case 'regular'
-            xdraw = x-xp_reg(mm);
-    end
-    scatter(xdraw, y, [], time, 'fill', 'SizeData',8)
-    text(xdraw(round(Nt*3/4)), y(round(Nt*3/4)), num2str(mm))
-end
-
-switch style
-    case 'init'
-        xlabel('$(x-x_0)/D_p$')
-    case 'regular'
-        xlabel('$(x-x_{reg})/D_p$')
-end
-ylabel('$y/D_p$')
-grid on
-cbar = colorbar;
-cbar.Label.String = '$t/\tau$';
-
-
-figure_defaults()
-
-cd('figures')
-%print_figure('particle_positions_centred','format','jpeg')
-cd('..')
+% figure(66)
+% clf
+% hold on
+% 
+% for mm = 1:Np
+%     x = x_p(:,mm);
+%     y = y_p(:,mm);
+%     switch style
+%         case 'init'
+%             xdraw = x - x(1);
+%         case 'regular'
+%             xdraw = x-xp_reg(mm);
+%     end
+%     scatter(xdraw, y, [], time, 'fill', 'SizeData',8)
+%     text(xdraw(round(Nt*3/4)), y(round(Nt*3/4)), num2str(mm))
+% end
+% 
+% switch style
+%     case 'init'
+%         xlabel('$(x-x_0)/D_p$')
+%     case 'regular'
+%         xlabel('$(x-x_{reg})/D_p$')
+% end
+% ylabel('$y/D_p$')
+% grid on
+% cbar = colorbar;
+% cbar.Label.String = '$t/\tau$';
+% 
+% 
+% figure_defaults()
+% 
+% cd('figures')
+% %print_figure('particle_positions_centred','format','jpeg')
+% cd('..')
