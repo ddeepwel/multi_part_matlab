@@ -1,10 +1,10 @@
 % Plot a 2D cross-section of 3D field
 
 % options
-field = '/p';
-plane = 'z';
+field = '/v';
+plane = 'x';
 val = 0;
-outputs = 0;
+outputs = 5;
 
 % setup
 fieldname = ['/',field];
@@ -26,24 +26,41 @@ for ii = outputs
     % load grid
     gd = read_grid(filename);
 
-    %ind = nearest_index(gd.yc, val);
-    ind = nearest_index(gd.zc, val);
-    data2d = squeeze(data(:,:,ind));
-    vf2d   = squeeze(  vf(:,:,ind));
-    %data2d = squeeze(data(:,ind,:));
-    %vf2d   = squeeze(  vf(:,ind,:));
+    switch plane
+        case 'x'
+            ind = nearest_index(gd.xc, val);
+            xsec = gd.xc(ind);
+            data2d = squeeze(data(ind,:,:));
+            vf2d   = squeeze(  vf(ind,:,:));
+        case 'y'
+            ind = nearest_index(gd.yc, val);
+            xsec = gd.yc(ind);
+            data2d = squeeze(data(:,:,ind));
+            vf2d   = squeeze(  vf(:,:,ind));
+        case 'z'
+            ind = nearest_index(gd.zc, val);
+            xsec = gd.zc(ind);
+            data2d = squeeze(data(:,ind,:));
+            vf2d   = squeeze(  vf(:,ind,:));
+    end
 
     figure(84)
     clf
-    %pcolor(gd.xc, gd.zc, data2d'.*(1-vf2d'))
-    pcolor(gd.xc, gd.yc, data2d');%.*(1-vf'))
+    switch plane
+        case 'x'
+            pcolor(gd.zc, gd.yc, data2d.*(1-vf2d))
+        case 'y'
+            pcolor(gd.xc, gd.zc, data2d'.*(1-vf2d'))
+        case 'z'
+            pcolor(gd.xc, gd.yc, data2d'.*(1-vf2d'))
+    end
     shading flat
     colorbar
     %caxis([-1 1]*max(abs(data2d(:))));
     caxis auto
     colormap(cmocean('balance'))
 
-    title(sprintf('%s, $y$ = %5.3g, $t_i$ = %d, $t$ = %5.3g',field,gd.yc(ind),ii,time))
+    title(sprintf('%s, $%s$ = %5.3g, $t_i$ = %d, $t$ = %5.3g',field,plane,xsec,ii,time))
     figure_defaults()
     drawnow
 end
