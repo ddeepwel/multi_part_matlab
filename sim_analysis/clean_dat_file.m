@@ -15,13 +15,10 @@ function [] = clean_dat_file(file)
         keep_inds = find_inds(time);
 
         % clean up diagnostics file
-        names = fieldnames(diagnos);
-        N_fields = length(names) - 1;
+        names = diagnos.Properties.VariableNames;
+        N_fields = length(names);
         new_diagnos = struct;
         for ii = 1:N_fields
-            if ~isempty(strfind('Properties, Row', names{ii}))
-                continue
-            end
             temp = diagnos.(names{ii});
             new_diagnos.(names{ii}) = temp(keep_inds);
         end
