@@ -16,15 +16,12 @@ end
 
 % load particle positions
 for nn = 0:Np-1
-    p_file = sprintf('mobile_%d', nn);
-    p_data = check_read_dat(p_file);
-    x_p(:,nn+1) = p_data.x;
-    y_p(:,nn+1) = p_data.y;
-    z_p(:,nn+1) = p_data.z;
+    [time, xyz_p, ~] = particle_position(nn);
+    x_p(:,nn+1) = xyz_p(:,1);
+    y_p(:,nn+1) = xyz_p(:,2);
 end
 
 % load parameters
-time = p_data.time;
 Nt = length(time);
 par = read_params();
 

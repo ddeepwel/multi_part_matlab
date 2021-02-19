@@ -25,7 +25,8 @@ for nn = 1:length(dirs)
     cd([base,dirs{nn}])
 
     % use particle velocity as comparison diagnostic
-    [time, y_p, vel] = particle_settling(pID-1);
+    [time, xyz_p, uvw_p] = particle_position(pID-1);
+    vel = uvw_p(:,2);
     plot(time, -vel)
 end
 
@@ -45,11 +46,12 @@ subplot(2,1,2)
 hold on
 
 [~, Np] = particle_initial_positions;
-[time0, ~, ~] = particle_settling(pID); % get a default time
+[time0, ~, ~] = particle_position(pID); % get a default time
 for nn = 1:length(dirs)
     cd([base,dirs{nn}])
     for mm = 1:Np
-        [time, y_p, vel] = particle_settling(mm-1);
+        [time, xyz_p, uvw_p] = particle_position(mm-1);
+        vel = uvw_p(:,2);
         vel_interp = interp1(time, vel, time0, 'linear');
         vel_mat(:,mm,nn) = vel_interp;
     end

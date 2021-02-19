@@ -52,7 +52,8 @@ for nn = 1:Nstrats
     for mm = 1:length(dirs)
         cd([base,strats{nn},dirs{mm}])
 
-        [time, y_p, vel] = particle_settling();
+        [time, xyz_p, uvw_p] = particle_position();
+        vel = uvw_p(:,2);
         % find settling speed after the initial acceleration
         t_ind = nearest_index(time, t_steady);
         v_steady(nn,mm) = vel(t_ind);

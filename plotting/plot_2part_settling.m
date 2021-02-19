@@ -42,7 +42,8 @@ for mm = 1:length(dirs)
     cd([base,dirs{mm}])
 
     % load data
-    [time, y_p, vel] = particle_settling();
+    [time, xyz_p, uvw_p] = particle_position();
+    vel = uvw_p(:,2);
 
     % check if particles are 10 Dp above the bottom
     % plot only until this point

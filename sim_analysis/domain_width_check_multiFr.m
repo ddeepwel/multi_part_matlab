@@ -34,7 +34,8 @@ for nn = 1:Nstrats
             continue
         end
 
-        [time, y_p, vel] = particle_settling();
+        [time, xyz_p, uvw_p] = particle_position();
+        vel = uvw_p(:,2);
 
         % find time when particles are 10 Dp above the bottom
         if ~reached_bottom(10)

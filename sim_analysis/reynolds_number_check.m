@@ -24,7 +24,8 @@ for nn = 1:length(dirs)
     cd([base,dirs{nn}])
 
     % use particle velocity as comparison diagnostic
-    [time, y_p, vel] = particle_settling();
+    [time, xyz_p, uvw_p] = particle_settling();
+    vel = uvw_p(:,2);
     plot(time, -vel)
 end
 

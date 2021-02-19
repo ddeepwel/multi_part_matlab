@@ -47,7 +47,7 @@ for nn = 1:Nstrats
         cd([base,strats{nn},dirs{mm}])
 
         % load data
-        [time, y_p, vel] = particle_settling();
+        [time, xyz_p, uvw_p] = particle_position();
         [time, sep, sep_vel] = particle_separation();
 
         % find time when particles are 10 Dp above the bottom

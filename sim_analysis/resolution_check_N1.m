@@ -4,14 +4,25 @@
 
 base = '/scratch/ddeepwel/multi_part/row/Fr2/resolution/';
 %base = '/scratch/ddeepwel/multi_part/row/Frinf/resolution/';
-dirs = {'dx16',...
-        'dx24',... % for Frinf
-        'dx32'};%,...
+
+switch base
+    case '/scratch/ddeepwel/multi_part/row/Frinf/resolution/'
+        dirs = {'dx16',...
+            'dx24',... % for Frinf
+            'dx32'};%,...
         %'dx64'};
-leg = {'$\Delta x / D_p = 1/16$',...
-       '$\Delta x / D_p = 1/24$',... % for Frinf
-       '$\Delta x / D_p = 1/32$'};%,...
-       %'$\Delta x / D_p = 1/64$'};
+        leg = {'$\Delta x / D_p = 1/16$',...
+            '$\Delta x / D_p = 1/24$',... % for Frinf
+            '$\Delta x / D_p = 1/32$'};%,...
+        %'$\Delta x / D_p = 1/64$'};
+    case '/scratch/ddeepwel/multi_part/row/Fr2/resolution/'
+        dirs = {'dx16',...
+            'dx32'};%,...
+        %'dx64'};
+        leg = {'$\Delta x / D_p = 1/16$',...
+            '$\Delta x / D_p = 1/32$'};%,...
+        %'$\Delta x / D_p = 1/64$'};
+end
 
 % setup figure
 figure(77)
@@ -23,7 +34,8 @@ for nn = 1:length(dirs)
     cd([base,dirs{nn}])
 
     % use particle velocity as comparison diagnostic
-    [time, y_p, vel] = particle_settling();
+    [time, xyz_p, uvw_p] = particle_settling();
+    vel = uvw_p(:,2);
     plot(time, -vel)
 end
 

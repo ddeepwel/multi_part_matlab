@@ -7,7 +7,10 @@ end
 
 params = read_params();
 
-[time, y_p, vel] = particle_settling(particle_ID);
+[time, xyz_p, uvw_p] = particle_position(particle_ID);
+
+y_p = xyz_p(:,2);
+v_p = uvw_p(:,2);
 
 % make figure
 figure(62)
@@ -22,7 +25,7 @@ grid on
 
 subplot(2,1,2)
 hold on
-plot(time, vel,'-')
+plot(time, v_p,'-')
 ylabel('$w_p/w_s$')
 xlabel('$t/\tau$')
 title('particle velocity')
