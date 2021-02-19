@@ -16,7 +16,7 @@ elseif nargin == 5
     clim  = varargin{2};
     style = 'pcolor';
     doplot = true;
-elseif nargin ==4;
+elseif nargin == 4;
     fnum = varargin{1};
     clim = 'auto';
     style = 'pcolor';
@@ -42,6 +42,11 @@ if strcmp(group(1:2), 'xy')
     xvar = gd.x - dx/2;
     yvar = gd.y - dy/2;
     xlab = '$x/D_p$';
+    ylab = '$y/D_p$';
+elseif strcmp(group(1:2), 'zy')
+    xvar = gd.z - dz/2;
+    yvar = gd.y - dy/2;
+    xlab = '$z/D_p$';
     ylab = '$y/D_p$';
 elseif strcmp(group(1:2), 'xz') || strcmp(group, 'integral_y')
     xvar = gd.x - dx/2;
@@ -80,6 +85,22 @@ for ii = t_index
         xsec2 = h5read(filename_2d, '/xy2/z');
         xsec = (xsec1 + xsec2)/2;
         seclab = sprintf('$z/D_p=%2.0f$', xsec);
+
+    elseif strcmp(group(1:2), 'zy')
+        % get data at z=0 as avg of data a half grid cell off on either side
+        data1 = h5read(filename_2d, ['/zy1/',field]);
+        data2 = h5read(filename_2d, ['/zy2/',field]);
+        data = (data1 + data2)/2;
+
+        vf1 = h5read(filename_2d, ['/zy1/vf']);
+        vf2 = h5read(filename_2d, ['/zy2/vf']);
+        vf = (vf1 + vf2)/2;
+
+        xsec1 = h5read(filename_2d, '/zy1/x');
+        xsec2 = h5read(filename_2d, '/zy2/x');
+        xsec = (xsec1 + xsec2)/2;
+        seclab = sprintf('$x/D_p=%2.0f$', xsec);
+
     elseif strcmp(field, 'KE_h')
         u = h5read(filename_2d, ['/',group,'/u']);
         w = h5read(filename_2d, ['/',group,'/w']);
@@ -90,6 +111,7 @@ for ii = t_index
 
         xsec = h5read(filename_2d, ['/',group,'/y']);
         seclab = sprintf('$y/D_p=%2.0f$', xsec);
+
     else
         data = h5read(filename_2d, fieldname);
         if strcmp(group, 'integral_y')
@@ -101,6 +123,7 @@ for ii = t_index
             % volume fraction
             vf = h5read(filename_2d, ['/',group,'/vf']);
         end
+
     end
     if strcmp(field, 'c1')
         data = 1-data;
@@ -126,7 +149,7 @@ for ii = t_index
 
         % add particle positions
         if ~strcmp(group, 'integral_y')
-            if strncmp(group(1:2), 'xy',2)
+            if strncmp(group(1:2), 'xy', 2) || strncmp(group(1:2), 'zy', 2)
                 particle_files = dir('mobile_*.dat');
                 N_files = length(particle_files);
                 p = cell(1, N_files);
@@ -135,8 +158,13 @@ for ii = t_index
                     p{mm} = check_read_dat(fname);
                     x = p{mm}.x;
                     y = p{mm}.y;
+                    z = p{mm}.z;
                     ind = nearest_index(p{1}.time, time);
-                    xy_p(mm,:) = [x(ind) y(ind)];
+                    if strncmp(group(1:2), 'xy', 2)
+                        xy_p(mm,:) = [x(ind) y(ind)];
+                    elseif strncmp(group(1:2), 'zy', 2)
+                        xy_p(mm,:) = [z(ind) y(ind)];
+                    end
                     viscircles(xy_p(mm,:), 0.5, 'Color', [0 0 0], 'LineWidth', 1);
                 end
             else
@@ -151,11 +179,11 @@ for ii = t_index
         xlabel(xlab)
         ylabel(ylab)
         if strcmp(field,'c0') || strcmp(field,'c1')
-            caxis([min(data(:).*(1-vf(:))) max(data(:).*(1-vf(:)))])
+            caxis([min(data(:).*(1-vf(:))) max(data(:).*(1-vf(:)))]);
         elseif ischar(clim)
             caxis([-1 1]*max(abs(data(:))));
         else
-            caxis(clim)
+            caxis(clim);
         end
         colormap(cmap)
 
