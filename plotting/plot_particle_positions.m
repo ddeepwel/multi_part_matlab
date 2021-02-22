@@ -47,14 +47,14 @@ end
 for mm = 1:Np
     switch style
         case 'init'
-            plot([1 1]*x_p(1,mm), [par.ymax par.ymin],'k','color',[0 0 0 0.3])
+            plot([1 1]*x_p(1,mm), [min(y_p(:)) par.ymax],'k','color',[0 0 0 0.3])
         case 'regular'
             % find average particle spacing
             xp_mean = round(mean(diff(x_p(1,:))));
             % create array of the spacing
             xp_reg = (par.xmin + xp_mean/2):xp_mean:(par.xmax + xp_mean/2);
 
-            plot([1 1]*xp_reg(mm), [par.ymax par.ymin],'k','color',[0 0 0 0.3])
+            plot([1 1]*xp_reg(mm), [min(y_p(:)) par.ymin],'k','color',[0 0 0 0.3])
     end
 end
 plot(xlim, [0 0],'k','color',[0 0 0 0.3])
@@ -65,7 +65,11 @@ cbar.Label.String = '$t/\tau$';
 xlabel('$x/D_p$')
 ylabel('$y/D_p$')
 title('particle position')
-axis([par.xmin, par.xmax par.ymin par.ymax])
+%axis([par.xmin, par.xmax par.ymin par.ymax])
+xlim([par.xmin par.xmax])
+yl = ylim;
+yl(2) = par.ymax;
+ylim(yl)
 
 figure_defaults()
 
