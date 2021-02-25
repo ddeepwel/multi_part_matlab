@@ -13,15 +13,13 @@ function [time, p_locs_new, p_depths_new] = plume_locations()
 
 % load particle positions
 for nn = 0:Np-1
-  p_file = sprintf('mobile_%d',nn);
-  p_data = check_read_dat(p_file);
-  x_p(nn+1,:)  = p_data.x;  % along-length position
-  y_p(nn+1,:)  = p_data.y;  % vertical position
-  z_p(nn+1,:)  = p_data.z;  % across-span position (could be neglected)
+    [time, xyz_p, ~] = particle_position(nn);
+    x_p(nn+1,:) = xyz_p(:,1);
+    y_p(nn+1,:) = xyz_p(:,2);
+    z_p(nn+1,:) = xyz_p(:,3);
 end
 
 % set time info
-time = p_data.time;
 Nt = length(time);
 
 % find average initial horizontal particle separation

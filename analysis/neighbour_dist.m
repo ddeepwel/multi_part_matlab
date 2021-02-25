@@ -1,6 +1,6 @@
 function [time, part0, p_dist] = neighbour_dist()
-% NEIGHBOUR_DIST    find the distance to the nearest neighbour
-% for each particle as a function of time
+% NEIGHBOUR_DIST    find the distance between two particles initially
+% side by side for each particle as a function of time
 %
 %  Inputs:
 %    - none
