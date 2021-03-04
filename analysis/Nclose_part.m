@@ -17,9 +17,8 @@ for nn = 0:Np-1
 end
 
 for ii = 1:length(time)
-    X = [x_p(:,ii)    y_p(:,ii) z_p(:,ii)];
+    X = [x_p(:,ii) y_p(:,ii) z_p(:,ii)];
     pair_dists = squareform(pdist(X));  % create a matrix of pair distances
     pair_dists(pair_dists==0) = NaN;
     Ncounts(ii) = sum(min(pair_dists) <= dist); 
 end
-
