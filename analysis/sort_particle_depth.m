@@ -1,5 +1,6 @@
-function inds = lowest_particles(tc)
-% list of particle IDs from lowest to highest
+function inds = lowest_particles_initial(tc)
+% list the particle IDs from lowest to highest
+% at a given time
 %
 % Inputs:
 %   - 'tc' - time to sort particles (double)
