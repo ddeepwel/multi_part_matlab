@@ -8,10 +8,11 @@ function [time, avg_speed] = avg_settling_speed
 for nn = 0:Np-1
   p_file = sprintf('mobile_%d',nn);
   p_data = check_read_dat(p_file);
-  v_p(nn+1,:)  = p_data.v;
+  if nn == 0
+      time = p_data.time;
+      inds = 1:length(time);
+  end
+  v_p(nn+1,:)  = p_data.v(inds);
 end
-
-% set time info
-time = p_data.time;
 
 avg_speed = mean(v_p);
