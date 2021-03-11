@@ -8,9 +8,7 @@ if nargin == 0
 end
 
 % compute the centre of mass and its settling speed
-[time,x_com,y_com,z_com] = particle_centre_of_mass();
-Dmat = FiniteDiff(time,1,2,true,false);
-v_com = Dmat * y_com;
+[time, x_com, y_com, z_com, u_com, v_com, w_com] = particle_centre_of_mass();
 
 % make figure
 figure(75)

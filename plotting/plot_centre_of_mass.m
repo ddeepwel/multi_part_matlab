@@ -8,13 +8,7 @@ if nargin == 0
 end
 
 % compute centre of mass
-[time,x_com,y_com,z_com] = particle_centre_of_mass();
-
-% calculate the rate of change of position of COM
-Dmat = FiniteDiff(time,1,2,true,false);
-u_com = Dmat * x_com;
-v_com = Dmat * y_com;
-w_com = Dmat * z_com;
+[time,x_com,y_com,z_com,u_com,v_com,w_com] = particle_centre_of_mass();
 
 % figure setup
 figure(74)
