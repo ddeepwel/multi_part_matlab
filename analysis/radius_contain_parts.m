@@ -3,6 +3,8 @@
 % for each particle find the minimum radius that contains 2,3,4...
 % particles
 
+clear all
+
 % number of particles
 [~, Np] = particle_initial_positions;
 

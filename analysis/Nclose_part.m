@@ -27,4 +27,3 @@ for ii = inds
     pair_dists(pair_dists==0) = NaN;
     Ncounts(ii) = sum(min(pair_dists) <= dist); 
 end
-
