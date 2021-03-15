@@ -25,3 +25,5 @@ yp_lowest = min(y_p,[],2);
 
 Dmat = FiniteDiff(time,1,2,true,false);
 vp_lowest = Dmat * yp_lowest;
+
+save('lowest_particle','time','yp_lowest','vp_lowest');

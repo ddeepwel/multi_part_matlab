@@ -3,7 +3,16 @@ function [] = plot_lowest_particle()
 
 params = read_params();
 
-[time, y_p, v_p] = lowest_particle();
+try
+    load('lowest_particle.mat')
+    p0 = check_read_dat('mobile_0');
+    if p0.time(end) > time(end)
+        disp('Simulation has been restarted, re-running lowest particle calculation')
+        [time, y_p, v_p] = lowest_particle();
+    end
+catch
+    [time, y_p, v_p] = lowest_particle();
+end
 
 % make figure
 figure(98)

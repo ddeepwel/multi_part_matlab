@@ -1,31 +1,24 @@
-function [] = plot_particle_snapshot(ts,fnum)
+function [] = plot_particle_snapshot(tc,fnum)
 % plot the particle positions at time ts
 
 if nargin == 1
     fnum = 55;
 end
 
-[time,xyz_p,uvw_p] = particle_position;
-[~, Np] = particle_initial_positions;
+[t_snapshot, xyz_p] = particle_snapshot(tc);
 
-% load particle positions
-for nn = 0:Np-1
-    [time, xyz_p, ~] = particle_position(nn);
-    x_p(:,nn+1) = xyz_p(:,1);
-    y_p(:,nn+1) = xyz_p(:,2);
-end
-
-t_ind = nearest_index(time,ts);
+[Np,~] = size(xyz_p);
 
 figure(fnum)
 clf
 
-viscircles([x_p(t_ind,:)' y_p(t_ind,:)'], ones(Np,1)*0.5);
+%viscircles(xyz_p(:,1:2), ones(Np,1)*0.5);
+viscircles(xyz_p(:,[1, 2]), ones(Np,1)*0.5);
 
 axis image
 xlabel('$x/D_p$')
 ylabel('$y/D_p$')
-ttl = sprintf('$t/\\tau=%.3g$',time(t_ind));
+ttl = sprintf('$t/\\tau=%.3g$',t_snapshot);
 title(ttl)
 
 figure_defaults()
