@@ -1,12 +1,13 @@
-function [time, pos, vel] = particle_position(pID)
-% PARTICLE_SETTLING  Calculate the particle settling velocity
+function [time, xyz_p, uvw_p] = particle_position(pID)
+% PARTICLE_POSITION Load the particle position and velocity for a particular particle
 %
 %  Inputs:
 %    'pID' - particle ID
 %
 %  Outputs:
 %    'time'   - a vector of the simulation time
-%    'theta'  - a vector of the orientation angle (as measured from the vertical)
+%    'xyz_p'  - a vector of the position
+%    'uvw_p'  - a vector of the velocity
 
 % default input arguments
 if nargin == 0
@@ -39,5 +40,5 @@ if max(diff(y_p)) > Ly/2
     end
 end
 
-pos = [x_p y_p z_p];
-vel = [u v w];
+xyz_p = [x_p y_p z_p];
+uvw_p = [u v w];
